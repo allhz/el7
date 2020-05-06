@@ -1,0 +1,65 @@
+mycurl -XGET localhost:9200/movies/_search?pretty -d '
+{
+"query": {
+"match": {
+"title": "Star Trek"
+}
+}
+}'
+
+mycurl -XGET localhost:9200/movies/_search?pretty -d '
+{
+"query": {
+"match_phrase": {
+"genre": "sci"
+}
+}
+}'
+
+mycurl -XDELETE localhost:9200/movies
+
+mycurl -XPUT localhost:9200/movies -d '
+        {
+                "mappings": {
+                        "properties": {
+				"id": {"type": "integer"},
+                                "year": {"type": "date"},
+				"genre": {"type": "keyword"},
+				"title": {"type": "text", "analyzer": "english"}
+                        }
+                }
+        }'
+
+
+mycurl -XPUT localhost:9200/_bulk?pretty --data-binary @movies.json
+
+mycurl -XGET localhost:9200/movies/_search?pretty -d '
+{
+"query": {
+"match_phrase": {
+"genre": "sci"
+}
+}
+}'
+
+
+mycurl -XGET localhost:9200/movies/_search?pretty -d '
+{
+"query": {
+"match_phrase": {
+"genre": "Sci-Fi"
+}
+}
+}'
+
+
+
+mycurl -XGET localhost:9200/movies/_search?pretty -d '
+{
+"query": {
+"match": {
+"title": "Star Trek"
+}
+}
+}'
+
