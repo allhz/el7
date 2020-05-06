@@ -1,0 +1,11 @@
+mycurl -XGET localhost:9200/series -d '
+{
+"mappings": {
+"properties": {
+"film_to_franchise": {
+"type": "join",
+"relations": {franchise": "film"}
+}
+}
+}
+}'
