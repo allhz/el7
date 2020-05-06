@@ -1,0 +1,22 @@
+mycurl -XPOST localhost:9200/movies/_doc/109487/_update -d '
+{
+	"doc": {
+		"title": "Interstellar"
+	}
+}'
+
+mycurl -XPUT localhost:9200/movies/_doc/109487?pretty -d '
+{
+	"genres": ["IMAX", "Sci-Fi"],
+	"title": "Interstellar foo",
+	"Year": 2014
+}'
+
+mycurl -XGET localhost:9200/movies/_doc/109487?pretty
+
+mycurl -XPUT localhost:9200/movies/_doc/109487?pretty -d '
+{
+	"genres": ["IMAX", "Sci-Fi"],
+	"title": "Interstellar",
+	"Year": 2014
+}'
